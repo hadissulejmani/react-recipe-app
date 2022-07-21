@@ -24,3 +24,23 @@
     text-decoration: none;
     margin: 20px auto;
   }
+
+  .ingredients {
+    display: flex;
+    align-items: center;
+    margin: 0%;
+  }
+
+  .ingredients button {
+    background-color: #979797;
+    border-radius: 70%;
+    color: white;
+    border: none;
+    padding: 0.5px;
+    font-size: 27px;
+    height: 46px;
+    width: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 10px;
+  }

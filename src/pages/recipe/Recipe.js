@@ -18,7 +18,7 @@ function Recipe() {
           <p>Ingredients:</p>
           <ul>
             {recipe.ingredients.map((ingredient) => (
-              <li key={ingredient.id}>{ingredient}</li>
+              <li key={ingredient}>{ingredient}</li>
             ))}
           </ul>
           <p className="method">{recipe.method}</p>
