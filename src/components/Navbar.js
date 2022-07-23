@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import { useContext } from "react";
-import { ThemeContext } from "../context/themeContext";
-import ToggleSwitch from "./ToggleSwitch";
+
 import { useTheme } from "../hooks/useTheme";
 
 function Navbar() {
-  const { theme } = useTheme(ThemeContext);
+  const { color, changeColor } = useTheme();
 
   return (
-    <div className="navbar" style={{ background: theme }}>
+    <div className="navbar" style={{ background: color }}>
       <nav>
         <Link to="/" className="brand">
           Cooking with Gordon
