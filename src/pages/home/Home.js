@@ -1,14 +1,35 @@
 import "./Home.css";
-import { useFetch } from "../../hooks/useFetch";
 import RecipeList from "../../components/RecipeList";
-import { useTheme } from "../../hooks/useTheme";
+import { firestoreProject } from "../../firebase/config";
+import { useEffect, useState } from "react";
 
 function Home() {
-  const { data, loading, error } = useFetch("http://localhost:3000/recipes");
-  const { mode } = useTheme();
+  const [data, setData] = useState(null);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setIsPending(true);
+    firestoreProject
+      .collection("cooking-recipes")
+      .get()
+      .then((snapshot) => {
+        const recipes = snapshot.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        console.log(recipes);
+        setData(recipes);
+        setIsPending(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setIsPending(false);
+      });
+  }, []);
+
   return (
     <div className="home">
-      {loading && <p>Loading...</p>}
+      {isPending && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {data && <RecipeList recipes={data} />}
     </div>
