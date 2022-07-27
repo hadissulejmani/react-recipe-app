@@ -17,12 +17,11 @@ function Home() {
         const recipes = snapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
-        console.log(recipes);
         setData(recipes);
         setIsPending(false);
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
         setIsPending(false);
       });
   }, []);
