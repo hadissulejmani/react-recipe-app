@@ -10,20 +10,19 @@ function Home() {
 
   useEffect(() => {
     setIsPending(true);
-    firestoreProject
-      .collection("cooking-recipes")
-      .get()
-      .then((snapshot) => {
+    firestoreProject.collection("cooking-recipes").onSnapshot(
+      (snapshot) => {
         const recipes = snapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
         setData(recipes);
         setIsPending(false);
-      })
-      .catch((error) => {
-        setError(error.message);
+      },
+      (error) => {
+        setError(error);
         setIsPending(false);
-      });
+      }
+    );
   }, []);
 
   return (

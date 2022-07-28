@@ -14,10 +14,8 @@ function Recipe() {
 
   useEffect(() => {
     setIsPending(true);
-    firestoreProject
-      .collection("cooking-recipes")
-      .get()
-      .then((snapshot) => {
+    firestoreProject.collection("cooking-recipes").onSnapshot(
+      (snapshot) => {
         const recipe = snapshot.docs
           .map((doc) => {
             return { id: doc.id, ...doc.data() };
@@ -25,14 +23,13 @@ function Recipe() {
           .find((recipe) => recipe.id === id);
         setData(recipe);
         setIsPending(false);
-      })
-      .catch((error) => {
-        setError(error.message);
+      },
+      (error) => {
+        setError(error);
         setIsPending(false);
-      });
+      }
+    );
   }, [id]);
-
-  console.log(data);
 
   return (
     <div className={`recipe ${mode}`}>
